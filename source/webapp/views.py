@@ -12,3 +12,12 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['Tasks'] = Task.objects.all()
         return context
+
+
+class TaskView(TemplateView):
+    template_name = 'view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['Task'] = get_object_or_404(Task, pk=kwargs['task_id'])
+        return context

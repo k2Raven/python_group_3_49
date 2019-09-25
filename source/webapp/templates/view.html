@@ -1,11 +1,6 @@
 {% extends 'base.html' %}
 
-{% block menu %}
-    <a class="nav-link" href="#">Дабавление</a>
-{% endblock %}
-
 {% block content %}
-    {% for Task in Tasks %}
         <div class="card m-2">
             <div class="card-header">
                 {{ Task.summary }} ({{ Task.created_at }})
@@ -14,12 +9,10 @@
             <div class="card-body">
                 <p class="card-text">Статус: {{ Task.status }}</p>
                 <p class="card-text">Тип задачи: {{ Task.types }}</p>
+                <p class="card-text">Полное описание: {{ Task.description }}</p>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
                         <form><a href="#" class="btn btn-primary">Удаление</a></form>
-                    </div>
-                    <div class="col-auto my-1">
-                        <form><a href="{% url 'task_view' Task.pk %}" class="btn btn-primary">Подробнее</a></form>
                     </div>
                     <div class="col-auto my-1">
                         <form><a href="#" class="btn btn-primary">Редаклирование</a></form>
@@ -28,5 +21,4 @@
 
             </div>
         </div>
-    {% endfor %}
 {% endblock %}
