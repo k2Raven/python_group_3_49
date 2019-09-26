@@ -3,7 +3,7 @@ from django.views.generic import View, TemplateView
 
 
 from webapp.forms import TaskForm
-from webapp.models import Task
+from webapp.models import Task, Status, Types
 
 
 class IndexView(TemplateView):
@@ -12,6 +12,8 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Tasks'] = Task.objects.order_by('-created_at')
+        context['Status'] = Status.objects.all()
+        context['Types'] = Types.objects.all()
         return context
 
 

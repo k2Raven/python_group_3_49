@@ -3,6 +3,28 @@
 {% block menu %}
     <a class="nav-link" href="{% url 'task_add' %}">Дабавление</a>
 {% endblock %}
+{% block dropdown %}
+<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Типы
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for Type in Types %}<a class="dropdown-item" href="#">{{ Type.name }}</a>{% endfor %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Добавить тип</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Статусы
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for Stat in Status %}<a class="dropdown-item" href="#">{{ Stat.name }}</a>{% endfor %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Добавить статус</a>
+        </div>
+      </li>
+{% endblock %}
 
 {% block content %}
     {% for Task in Tasks %}
