@@ -10,3 +10,11 @@ class TaskForm(forms.Form):
                                   widget=widgets.Textarea)
     status = forms.ModelChoiceField(queryset=Status.objects.all(), required=True, label='Статус', empty_label=None)
     types = forms.ModelChoiceField(queryset=Types.objects.all(), required=True, label='Тип', empty_label=None)
+
+
+class TypesForm(forms.Form):
+    name = forms.CharField(max_length=20, required=True, label='Название')
+
+
+class StatusForm(forms.Form):
+    name = forms.CharField(max_length=20, required=True, label='Название')

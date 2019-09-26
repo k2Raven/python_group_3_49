@@ -11,7 +11,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           {% for Type in Types %}<a class="dropdown-item" href="#">{{ Type.name }}</a>{% endfor %}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Добавить тип</a>
+          <a class="dropdown-item" href="{% url 'types_add' %}">Добавить тип</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -21,7 +21,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           {% for Stat in Status %}<a class="dropdown-item" href="#">{{ Stat.name }}</a>{% endfor %}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Добавить статус</a>
+          <a class="dropdown-item" href="{% url 'status_add' %}">Добавить статус</a>
         </div>
       </li>
 {% endblock %}

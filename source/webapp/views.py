@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, TemplateView
 
 
-from webapp.forms import TaskForm
+from webapp.forms import TaskForm, TypesForm, StatusForm
 from webapp.models import Task, Status, Types
 
 
@@ -84,3 +84,39 @@ class TaskDeleteView(View):
         task = get_object_or_404(Task, pk=kwargs.get('pk'))
         task.delete()
         return redirect('index')
+
+
+class StatusCreateView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = StatusForm()
+        context = {'form': form}
+        return render(request, 'create_status.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = StatusForm(data=request.POST)
+        if form.is_valid():
+            Status.objects.create(
+                name=form.cleaned_data['name']
+            )
+            return redirect('/')
+        else:
+            return render(request, 'create_status.html', context={'form': form})
+
+
+class TypesCreateView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = TypesForm()
+        context = {'form': form}
+        return render(request, 'create_types.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = TypesForm(data=request.POST)
+        if form.is_valid():
+            Types.objects.create(
+                name=form.cleaned_data['name']
+            )
+            return redirect('/')
+        else:
+            return render(request, 'create_types.html', context={'form': form})
