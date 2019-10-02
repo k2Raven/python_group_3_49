@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Delete{% endblock %}
+
+{% block content %}
+    <div class="card m-2">
+        <div class="card-header">
+            Are you sure want to delete article "{{ task }}"?
+        </div>
+        <div class="card-body">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <form method="POST" record="{% url "delete_status" status.pk %}">
+                        {% include 'partial/task_form.html' with button_text='Удалить' %}
+                    </form>
+                </div>
+                <div class="col-auto my-1">
+                    <form><a href="{% url 'index'%}" class="btn btn-primary">Назад</a></form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
