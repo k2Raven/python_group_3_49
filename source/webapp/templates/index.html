@@ -9,7 +9,15 @@
           Типы
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          {% for Type in Types %}<a class="dropdown-item" href="#">{{ Type.name }}</a>{% endfor %}
+          {% for Type in Types %}
+            <div class="d-flex">
+                <a class="dropdown-item " href="#">{{ Type.name }}</a>
+                <div class="d-flex">
+                <a class="dropdown-item " href="{% url 'types_update' Type.pk %}"><i class="fas fa-pencil-alt"></i></a>
+                <a class="dropdown-item " href="#"><i class="fab fa-hotjar"></i></a>
+                </div>
+            </div>
+          {% endfor %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'types_add' %}">Добавить тип</a>
         </div>
@@ -19,8 +27,16 @@
           Статусы
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          {% for Stat in Status %}<a class="dropdown-item" href="#">{{ Stat.name }}</a>{% endfor %}
-          <div class="dropdown-divider"></div>
+          {% for Stat in Status %}
+            <div class="d-flex">
+                <a class="dropdown-item" href="#">{{ Stat.name }}</a>
+                <div class="d-flex">
+                <a class="dropdown-item " href="{% url 'status_update' Stat.pk %}"><i class="fas fa-pencil-alt"></i></a>
+                <a class="dropdown-item " href="#"><i class="fab fa-hotjar"></i></a>
+                </div>
+            </div>
+          {% endfor %}
+            <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'status_add' %}">Добавить статус</a>
         </div>
       </li>

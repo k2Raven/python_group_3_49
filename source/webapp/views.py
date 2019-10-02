@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView
 
 
-from webapp.forms import TaskForm, TypesForm, StatusForm
+from webapp.forms import TaskForm, StatusForm, TypesForm
 from webapp.models import Task, Status, Types
 
 
@@ -65,14 +65,14 @@ class TaskUpdateView(View):
         task = get_object_or_404(Task, pk=pk)
         form = TaskForm(data=request.POST)
         if form.is_valid():
-            task.summary = form.cleaned_data['summary'],
-            task.description = form.cleaned_data['description'],
-            task.status = form.cleaned_data['status'],
+            task.summary = form.cleaned_data['summary']
+            task.description = form.cleaned_data['description']
+            task.status = form.cleaned_data['status']
             task.types = form.cleaned_data['types']
             task.save()
-            return redirect('article_view', pk=task.pk)
+            return redirect('index')
         else:
-            return render(request, 'update.html', context={'form': form, 'task': task})
+            return render(request, 'update.html', context={'form': form, 'task': task.pk})
 
 
 class TaskDeleteView(View):
@@ -120,3 +120,47 @@ class TypesCreateView(View):
             return redirect('/')
         else:
             return render(request, 'create_types.html', context={'form': form})
+
+
+class TypesUpdateView(View):
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        types = get_object_or_404(Types, pk=pk)
+        form = TypesForm(data={
+            'name': types.name
+        })
+        return render(request, 'update_types.html', context={'form': form, 'types': types})
+
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        types = get_object_or_404(Types, pk=pk)
+        form = TypesForm(data=request.POST)
+        if form.is_valid():
+            types.name = form.cleaned_data['name']
+            types.save()
+            return redirect('index')
+        else:
+            return render(request, 'update_types.html', context={'form': form, 'types': types})
+
+
+class StatusUpdateView(View):
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        status = get_object_or_404(Status, pk=pk)
+        form = StatusForm(data={
+            'name': status.name
+        })
+        return render(request, 'update_status.html', context={'form': form, 'status': status})
+
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        status = get_object_or_404(Status, pk=pk)
+        form = StatusForm(data=request.POST)
+        if form.is_valid():
+            status.name = form.cleaned_data['name']
+            status.save()
+            return redirect('index')
+        else:
+            return render(request, 'update_status.html', context={'form': form, 'status': status})
