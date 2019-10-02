@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="card m-2">
+            <div class="card-header">
+                Изменение статуса
+            </div>
+
+            <div class="card-body">
+                <form method="POST" action="{% url 'status_update'  status.pk %}">
+                    {% include 'partial/task_form.html' with button_text="Изменить" %}
+                </form>
+            </div>
+        </div>
+{% endblock %}
