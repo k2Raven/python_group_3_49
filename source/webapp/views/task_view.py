@@ -9,6 +9,8 @@ from webapp.models import Task, Status, Types
 class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'Tasks'
+    paginate_by = 5
+    paginate_orphans = 1
 
     def get_queryset(self):
         return Task.objects.order_by('-created_at')

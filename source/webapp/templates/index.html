@@ -43,6 +43,9 @@
 {% endblock %}
 
 {% block content %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
     {% for Task in Tasks %}
         <div class="card m-2">
             <div class="card-header">
@@ -67,4 +70,7 @@
             </div>
         </div>
     {% endfor %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
 {% endblock %}
