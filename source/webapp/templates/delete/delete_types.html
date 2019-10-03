@@ -4,9 +4,12 @@
 {% block content %}
     <div class="card m-2">
         <div class="card-header">
-            Are you sure want to delete article "{{ task }}"?
+            Вы хотите удалить "{{ types }}"?
         </div>
         <div class="card-body">
+            <div class="col-sm-10">
+                <p>{{ error }}</p>
+            </div>
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
                     <form method="POST" record="{% url "delete_types" types.pk %}">

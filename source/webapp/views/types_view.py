@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, TemplateView, ListView
+from django.views.generic import View
+from django.db.models import ProtectedError
+
 
 
 from webapp.forms import TypesForm
@@ -49,11 +51,15 @@ class TypesUpdateView(View):
 class TypesDeleteView(View):
     def get(self, request, *args, **kwargs):
         types = get_object_or_404(Types, pk=kwargs.get('pk'))
-        return render(request, 'delete/delete_ status.html', context={'types': types})
+        return render(request, 'delete/delete_types.html', context={'types': types})
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         types = get_object_or_404(Types, pk=kwargs.get('pk'))
-        types.delete()
-        return redirect('index')
+        try:
+            types.delete()
+            return redirect('index')
+        except ProtectedError:
+            error = 'Ошибка: Используется в задачах, удалить нельзя!!!'
+            return render(request, 'delete/delete_types.html', context={'types': types, 'error' : error})
 
 

@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, ListView
-from django.db.models import ProtectedError
-
 
 from webapp.forms import TaskForm
 from webapp.models import Task, Status, Types

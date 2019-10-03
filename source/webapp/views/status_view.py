@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, TemplateView, ListView
+from django.views.generic import View
+from django.db.models import ProtectedError
+
 
 
 from webapp.forms import StatusForm
@@ -51,7 +53,11 @@ class StatusDeleteView(View):
         status = get_object_or_404(Status, pk=kwargs.get('pk'))
         return render(request, 'delete/delete_ status.html', context={'status': status})
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         status = get_object_or_404(Status, pk=kwargs.get('pk'))
-        status.delete()
-        return redirect('index')
+        try:
+            status.delete()
+            return redirect('index')
+        except ProtectedError:
+            error = 'Ошибка: Используется в задачах, удалить нельзя!!!'
+            return render(request, 'delete/delete_ status.html', context={'status': status, 'error': error})
