@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, TemplateView, ListView
+from django.views.generic import View, ListView
+from django.db.models import ProtectedError
 
 
 from webapp.forms import TaskForm
 from webapp.models import Task, Status, Types
+from .base_view import DetailView
 
 
 class IndexView(ListView):
@@ -22,13 +24,10 @@ class IndexView(ListView):
         return context
 
 
-class TaskView(TemplateView):
+class TaskView(DetailView):
     template_name = 'view.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['Task'] = get_object_or_404(Task, pk=kwargs['task_id'])
-        return context
+    model = Task
+    context_key = 'Task'
 
 
 class TaskCreateView(View):

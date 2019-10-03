@@ -21,7 +21,7 @@ from webapp.views import IndexView, TaskView, TaskCreateView, TaskUpdateView, Ta
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
-    path('task/<int:task_id>', TaskView.as_view(), name='task_view'),
+    path('task/<int:pk>', TaskView.as_view(), name='task_view'),
     path('task/add/', TaskCreateView.as_view(), name='task_add'),
     path('status/add/', StatusCreateView.as_view(), name='status_add'),
     path('types/add/', TypesCreateView.as_view(), name='types_add'),
