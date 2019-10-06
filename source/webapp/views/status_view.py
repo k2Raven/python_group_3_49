@@ -1,29 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View
+from django.views import View
+from django.views.generic import CreateView
 from django.db.models import ProtectedError
-
 
 
 from webapp.forms import StatusForm
 from webapp.models import Status
 
 
-class StatusCreateView(View):
-
-    def get(self, request, *args, **kwargs):
-        form = StatusForm()
-        context = {'form': form}
-        return render(request, 'create/create_status.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            Status.objects.create(
-                name=form.cleaned_data['name']
-            )
-            return redirect('/')
-        else:
-            return render(request, 'create/create_status.html', context={'form': form})
+class StatusCreateView(CreateView):
+    template_name = 'create/create_status.html'
+    model = Status
+    form_class = StatusForm
+    success_url = '/'
 
 
 class StatusUpdateView(View):

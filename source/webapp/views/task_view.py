@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, ListView
+from django.urls import reverse
+from django.views import View
+from django.views.generic import ListView, DetailView, CreateView
 
 from webapp.forms import TaskForm
 from webapp.models import Task, Status, Types
-from .base_view import DetailView
 
 
 class IndexView(ListView):
@@ -25,28 +26,16 @@ class IndexView(ListView):
 class TaskView(DetailView):
     template_name = 'view.html'
     model = Task
-    context_key = 'Task'
+    context_object_name = 'Task'
 
 
-class TaskCreateView(View):
+class TaskCreateView(CreateView):
+    template_name = 'create/create.html'
+    model = Task
+    form_class = TaskForm
 
-    def get(self, request, *args, **kwargs):
-        form = TaskForm()
-        context = {'form': form}
-        return render(request, 'create/create.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            Task.objects.create(
-                summary=form.cleaned_data['summary'],
-                description=form.cleaned_data['description'],
-                status=form.cleaned_data['status'],
-                types=form.cleaned_data['types']
-            )
-            return redirect('/')
-        else:
-            return render(request, 'create/create.html', context={'form': form})
+    def get_success_url(self):
+        return reverse('task_view', kwargs={'pk': self.object.pk})
 
 
 class TaskUpdateView(View):

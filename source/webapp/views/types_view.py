@@ -1,29 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View
+from django.views import View
+from django.views.generic import CreateView
 from django.db.models import ProtectedError
-
 
 
 from webapp.forms import TypesForm
 from webapp.models import Types
 
 
-class TypesCreateView(View):
-
-    def get(self, request, *args, **kwargs):
-        form = TypesForm()
-        context = {'form': form}
-        return render(request, 'create/create_types.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = TypesForm(data=request.POST)
-        if form.is_valid():
-            Types.objects.create(
-                name=form.cleaned_data['name']
-            )
-            return redirect('/')
-        else:
-            return render(request, 'create/create_types.html', context={'form': form})
+class TypesCreateView(CreateView):
+    template_name = 'create/create_types.html'
+    model = Types
+    form_class = TypesForm
+    success_url = '/'
 
 
 class TypesUpdateView(View):
