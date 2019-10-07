@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from webapp.forms import TaskForm
 from webapp.models import Task, Status, Types
+from webapp.views.base_view import UpdateView
 
 
 class IndexView(ListView):
@@ -38,32 +39,13 @@ class TaskCreateView(CreateView):
         return reverse('task_view', kwargs={'pk': self.object.pk})
 
 
-class TaskUpdateView(View):
-
-    def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        task = get_object_or_404(Task, pk=pk)
-        form = TaskForm(data={
-            'summary': task.summary,
-            'description': task.description,
-            'status': task.status_id,
-            'types': task.types_id
-        })
-        return render(request, 'update/update.html', context={'form': form, 'task': task})
-
-    def post(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        task = get_object_or_404(Task, pk=pk)
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            task.summary = form.cleaned_data['summary']
-            task.description = form.cleaned_data['description']
-            task.status = form.cleaned_data['status']
-            task.types = form.cleaned_data['types']
-            task.save()
-            return redirect('index')
-        else:
-            return render(request, 'update/update.html', context={'form': form, 'task': task.pk})
+class TaskUpdateView(UpdateView):
+    template_name = 'update/update.html'
+    model = Task
+    form_class = TaskForm
+    redirect_url = 'index'
+    key_kwarg = 'pk'
+    context_object_name = 'task'
 
 
 class TaskDeleteView(View):

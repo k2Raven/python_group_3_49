@@ -6,6 +6,7 @@ from django.db.models import ProtectedError
 
 from webapp.forms import StatusForm
 from webapp.models import Status
+from webapp.views.base_view import UpdateView
 
 
 class StatusCreateView(CreateView):
@@ -15,26 +16,13 @@ class StatusCreateView(CreateView):
     success_url = '/'
 
 
-class StatusUpdateView(View):
-
-    def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        status = get_object_or_404(Status, pk=pk)
-        form = StatusForm(data={
-            'name': status.name
-        })
-        return render(request, 'update/update_status.html', context={'form': form, 'status': status})
-
-    def post(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        status = get_object_or_404(Status, pk=pk)
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            status.name = form.cleaned_data['name']
-            status.save()
-            return redirect('index')
-        else:
-            return render(request, 'update/update_status.html', context={'form': form, 'status': status})
+class StatusUpdateView(UpdateView):
+    template_name = 'update/update_status.html'
+    model = Status
+    form_class = StatusForm
+    redirect_url = '/'
+    key_kwarg = 'pk'
+    context_object_name = 'status'
 
 
 class StatusDeleteView(View):

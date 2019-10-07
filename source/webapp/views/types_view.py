@@ -6,6 +6,7 @@ from django.db.models import ProtectedError
 
 from webapp.forms import TypesForm
 from webapp.models import Types
+from webapp.views.base_view import UpdateView
 
 
 class TypesCreateView(CreateView):
@@ -15,26 +16,33 @@ class TypesCreateView(CreateView):
     success_url = '/'
 
 
-class TypesUpdateView(View):
+class TypesUpdateView(UpdateView):
+    template_name = 'update/update_types.html'
+    model = Types
+    form_class = TypesForm
+    redirect_url = 'index'
+    key_kwarg = 'pk'
+    context_object_name = 'types'
 
-    def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        types = get_object_or_404(Types, pk=pk)
-        form = TypesForm(data={
-            'name': types.name
-        })
-        return render(request, 'update/update_types.html', context={'form': form, 'types': types})
 
-    def post(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        types = get_object_or_404(Types, pk=pk)
-        form = TypesForm(data=request.POST)
-        if form.is_valid():
-            types.name = form.cleaned_data['name']
-            types.save()
-            return redirect('index')
-        else:
-            return render(request, 'update/update_types.html', context={'form': form, 'types': types})
+    # def get(self, request, *args, **kwargs):
+    #     pk = kwargs.get('pk')
+    #     types = get_object_or_404(Types, pk=pk)
+    #     form = TypesForm(data={
+    #         'name': types.name
+    #     })
+    #     return render(request, 'update/update_types.html', context={'form': form, 'types': types})
+    #
+    # def post(self, request, *args, **kwargs):
+    #     pk = kwargs.get('pk')
+    #     types = get_object_or_404(Types, pk=pk)
+    #     form = TypesForm(data=request.POST)
+    #     if form.is_valid():
+    #         types.name = form.cleaned_data['name']
+    #         types.save()
+    #         return redirect('index')
+    #     else:
+    #         return render(request, 'update/update_types.html', context={'form': form, 'types': types})
 
 
 class TypesDeleteView(View):
