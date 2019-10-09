@@ -1,9 +1,8 @@
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import TaskForm
 from webapp.models import Task, Status, Types
-from webapp.views.base_view import DeleteView
 
 
 class IndexView(ListView):
@@ -50,6 +49,5 @@ class TaskUpdateView(UpdateView):
 class TaskDeleteView(DeleteView):
     template_name = 'delete/delete.html'
     model = Task
-    redirect_url = 'index'
-    key_kwarg = 'pk'
+    success_url = reverse_lazy('index')
     context_object_name = 'task'

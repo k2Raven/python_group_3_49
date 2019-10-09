@@ -1,9 +1,9 @@
-from django.views.generic import CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 
 from webapp.forms import StatusForm
 from webapp.models import Status
-from webapp.views.base_view import DeleteView
 
 
 class StatusCreateView(CreateView):
@@ -24,8 +24,5 @@ class StatusUpdateView(UpdateView):
 class StatusDeleteView(DeleteView):
     template_name = 'delete/delete_ status.html'
     model = Status
-    error_deletion = False
-    redirect_url = 'index'
-    key_kwarg = 'pk'
+    success_url = reverse_lazy('index')
     context_object_name = 'status'
-    text_error = 'Ошибка: Используется в задачах, удалить нельзя!!!'

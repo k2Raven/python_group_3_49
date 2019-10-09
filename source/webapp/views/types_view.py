@@ -1,9 +1,9 @@
-from django.views.generic import CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 
 from webapp.forms import TypesForm
 from webapp.models import Types
-from webapp.views.base_view import DeleteView
 
 
 class TypesCreateView(CreateView):
@@ -24,8 +24,5 @@ class TypesUpdateView(UpdateView):
 class TypesDeleteView(DeleteView):
     template_name = 'delete/delete_types.html'
     model = Types
-    error_deletion = False
-    redirect_url = 'index'
-    key_kwarg = 'pk'
+    success_url = reverse_lazy('index')
     context_object_name = 'types'
-    text_error = 'Ошибка: Используется в задачах, удалить нельзя!!!'
