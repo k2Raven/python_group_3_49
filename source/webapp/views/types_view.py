@@ -1,9 +1,9 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 
 from webapp.forms import TypesForm
 from webapp.models import Types
-from webapp.views.base_view import UpdateView, DeleteView
+from webapp.views.base_view import DeleteView
 
 
 class TypesCreateView(CreateView):
@@ -17,9 +17,8 @@ class TypesUpdateView(UpdateView):
     template_name = 'update/update_types.html'
     model = Types
     form_class = TypesForm
-    redirect_url = 'index'
-    key_kwarg = 'pk'
     context_object_name = 'types'
+    success_url = '/'
 
 
 class TypesDeleteView(DeleteView):

@@ -1,9 +1,9 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 
 from webapp.forms import StatusForm
 from webapp.models import Status
-from webapp.views.base_view import UpdateView, DeleteView
+from webapp.views.base_view import DeleteView
 
 
 class StatusCreateView(CreateView):
@@ -17,9 +17,8 @@ class StatusUpdateView(UpdateView):
     template_name = 'update/update_status.html'
     model = Status
     form_class = StatusForm
-    redirect_url = '/'
-    key_kwarg = 'pk'
     context_object_name = 'status'
+    success_url = '/'
 
 
 class StatusDeleteView(DeleteView):

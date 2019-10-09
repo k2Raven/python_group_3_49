@@ -1,9 +1,9 @@
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from webapp.forms import TaskForm
 from webapp.models import Task, Status, Types
-from webapp.views.base_view import UpdateView, DeleteView
+from webapp.views.base_view import DeleteView
 
 
 class IndexView(ListView):
@@ -41,9 +41,10 @@ class TaskUpdateView(UpdateView):
     template_name = 'update/update.html'
     model = Task
     form_class = TaskForm
-    redirect_url = 'index'
-    key_kwarg = 'pk'
     context_object_name = 'task'
+
+    def get_success_url(self):
+        return reverse('task_view', kwargs={'pk': self.object.pk})
 
 
 class TaskDeleteView(DeleteView):
