@@ -1,5 +1,11 @@
 from django import forms
-from webapp.models import Task, Types, Status
+from webapp.models import Task, Types, Status, Project
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        exclude = ['created_at', 'updated_at']
 
 
 class TaskForm(forms.ModelForm):
