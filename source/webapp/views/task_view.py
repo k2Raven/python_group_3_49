@@ -1,8 +1,9 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.shortcuts import render
 from webapp.forms import TaskForm
-from webapp.models import Task, Status, Types
+from webapp.models import Task, Status, Types, Project
 
 
 class IndexView(ListView):
@@ -29,11 +30,13 @@ class TaskView(DetailView):
 
 class TaskCreateView(CreateView):
     template_name = 'create/create.html'
-    model = Task
     form_class = TaskForm
 
-    def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.object.pk})
+    def form_valid(self, form):
+        project_pk = self.kwargs.get('pk')
+        project = get_object_or_404(Project,pk=project_pk)
+        project.task.create(**form.cleaned_data)
+        return redirect('project_view', pk=project_pk)
 
 
 class TaskUpdateView(UpdateView):

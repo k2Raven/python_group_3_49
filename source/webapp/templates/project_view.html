@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block dropdown %}
-    <a class="nav-link" href="#">Дабавление задачи</a>
+    <a class="nav-link" href="{% url 'task_add' project.pk %}">Дабавление задачи</a>
 {% endblock %}
 
 {% block content %}

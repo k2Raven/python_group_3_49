@@ -11,7 +11,7 @@ class ProjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        exclude = ['created_at']
+        exclude = ['created_at', 'project']
 
 
 class TypesForm(forms.ModelForm):
