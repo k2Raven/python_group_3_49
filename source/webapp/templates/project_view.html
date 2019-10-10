@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="card m-2">
+            <div class="card-header">
+                {{ project.name }} (Дата создание: {{ project.created_at }})
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">Описание проекта: {{ project.description }}</p>
+                <p class="card-text">Дата обновления: {{ project.updated_at }}</p>
+                <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                        <form><a href="#" class="btn btn-primary">Удаление</a></form>
+                    </div>
+                    <div class="col-auto my-1">
+                        <form><a href="#" class="btn btn-primary">Редаклирование</a></form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% for task in tasks %}
+        <div class="card m-2">
+            <div class="card-header">
+                {{ task.summary }} ({{ task.created_at }})
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">Статус: {{ task.status }}</p>
+                <p class="card-text">Тип задачи: {{ task.types }}</p>
+                <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                        <form><a href="{% url 'delete_task' task.pk %}" class="btn btn-primary">Удаление</a></form>
+                    </div>
+                    <div class="col-auto my-1">
+                        <form><a href="{% url 'task_update' task.pk %}" class="btn btn-primary">Редаклирование</a></form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p>Нет задачь</p>
+    {% endfor %}
+{% endblock %}
