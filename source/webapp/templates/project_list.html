@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+    <a class="nav-link" href="#">Задачи</a>
+{% endblock %}
+
+{% block dropdown %}
+    <a class="nav-link" href="#">Дабавление</a>
+{% endblock %}
+
+{% block content %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    {% for Project in Projects %}
+        <div class="card m-2">
+            <div class="card-header">
+                {{ Project.name }} (Дата создание: {{ Project.created_at }})
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">Дата обновления: {{ Project.updated_at }}</p>
+                <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                        <form><a href="#" class="btn btn-primary">Удаление</a></form>
+                    </div>
+                    <div class="col-auto my-1">
+                        <form><a href="#" class="btn btn-primary">Подробнее</a></form>
+                    </div>
+                    <div class="col-auto my-1">
+                        <form><a href="#" class="btn btn-primary">Редаклирование</a></form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}
