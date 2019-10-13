@@ -22,7 +22,7 @@
                 <p class="card-text">Дата обновления: {{ project.updated_at }}</p>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
-                        <form><a href="#" class="btn btn-primary">Удаление</a></form>
+                        <form><a href="{% url 'delete_project' project.pk %}" class="btn btn-primary">Удаление</a></form>
                     </div>
                     <div class="col-auto my-1">
                         <form><a href="{% url 'project_view' project.pk %}" class="btn btn-primary">Подробнее</a></form>
