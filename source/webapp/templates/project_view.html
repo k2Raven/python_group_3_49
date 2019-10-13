@@ -6,7 +6,7 @@
 
 {% block content %}
         <div class="card m-2">
-            <div class="card-header">
+            <div class="card-header alert-dark">
                 {{ project.name }} (Дата создание: {{ project.created_at }})
             </div>
 
@@ -18,7 +18,7 @@
                         <form><a href="#" class="btn btn-primary">Удаление</a></form>
                     </div>
                     <div class="col-auto my-1">
-                        <form><a href="#" class="btn btn-primary">Редаклирование</a></form>
+                        <form><a href="{% url 'project_update' project.pk %}" class="btn btn-primary">Редаклирование</a></form>
                     </div>
                 </div>
 
