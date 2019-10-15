@@ -7,6 +7,9 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
 
+    def __str__(self):
+        return self.name
+
 
 class Task(models.Model):
     project = models.ForeignKey('webapp.Project', related_name='task', on_delete=models.CASCADE,

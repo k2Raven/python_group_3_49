@@ -8,6 +8,10 @@
     <a class="nav-link" href="{% url 'project_add' %}">Дабавление</a>
 {% endblock %}
 
+{% block search %}
+    {% include 'partial/simple_search.html' %}
+{% endblock %}
+
 {% block content %}
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
