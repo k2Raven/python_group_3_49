@@ -13,7 +13,7 @@
         Вход
       </div>
       <div class="card-body">
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'accounts:login' %}" method="post">
             {% csrf_token %}
             {% if has_error %}
                 <p class="form-error">Неверное имя пользователя или пароль.</p>
@@ -27,7 +27,7 @@
             <input type="password" class="form-control" name="password" id="password">
           </div>
           <button type="submit" class="btn btn-primary">Войти</button>
-          <a class="btn btn-primary" href="{% url 'project_list' %}" role="button">Назад</a>
+          <a class="btn btn-primary" href="{% url 'webapp:project_list' %}" role="button">Назад</a>
         </form>
       </div>
     </div>

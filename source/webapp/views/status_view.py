@@ -24,5 +24,5 @@ class StatusUpdateView(UpdateView):
 class StatusDeleteView(DeleteView):
     template_name = 'delete/delete_ status.html'
     model = Status
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')
     context_object_name = 'status'

@@ -24,5 +24,5 @@ class TypesUpdateView(UpdateView):
 class TypesDeleteView(DeleteView):
     template_name = 'delete/delete_types.html'
     model = Types
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')
     context_object_name = 'types'
