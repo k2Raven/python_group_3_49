@@ -7,7 +7,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{% url 'types_add' %}">
+                <form method="POST" action="{% url 'webapp:types_add' %}">
                     {% include 'partial/task_form.html' with button_text="Создать" %}
                 </form>
 

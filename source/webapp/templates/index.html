@@ -10,13 +10,13 @@
             <div class="d-flex">
                 <a class="dropdown-item " href="#">{{ Type.name }}</a>
                 <div class="d-flex">
-                <a class="dropdown-item " href="{% url 'types_update' Type.pk %}"><i class="fas fa-pencil-alt"></i></a>
-                <a class="dropdown-item " href="{% url 'delete_types' Type.pk %}"><i class="fab fa-hotjar"></i></a>
+                <a class="dropdown-item " href="{% url 'webapp:types_update' Type.pk %}"><i class="fas fa-pencil-alt"></i></a>
+                <a class="dropdown-item " href="{% url 'webapp:delete_types' Type.pk %}"><i class="fab fa-hotjar"></i></a>
                 </div>
             </div>
           {% endfor %}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'types_add' %}">Добавить тип</a>
+          <a class="dropdown-item" href="{% url 'webapp:types_add' %}">Добавить тип</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -28,13 +28,13 @@
             <div class="d-flex">
                 <a class="dropdown-item" href="#">{{ Stat.name }}</a>
                 <div class="d-flex">
-                <a class="dropdown-item " href="{% url 'status_update' Stat.pk %}"><i class="fas fa-pencil-alt"></i></a>
-                <a class="dropdown-item " href="{% url 'delete_status' Stat.pk %}"><i class="fab fa-hotjar"></i></a>
+                <a class="dropdown-item " href="{% url 'webapp:status_update' Stat.pk %}"><i class="fas fa-pencil-alt"></i></a>
+                <a class="dropdown-item " href="{% url 'webapp:delete_status' Stat.pk %}"><i class="fab fa-hotjar"></i></a>
                 </div>
             </div>
           {% endfor %}
             <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'status_add' %}">Добавить статус</a>
+          <a class="dropdown-item" href="{% url 'webapp:status_add' %}">Добавить статус</a>
         </div>
       </li>
 {% endblock %}
@@ -58,13 +58,13 @@
                 <p class="card-text">Тип задачи: {{ Task.types }}</p>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'delete_task' Task.pk %}" class="btn btn-primary">Удаление</a></form>
+                        <form><a href="{% url 'webapp:delete_task' Task.pk %}" class="btn btn-primary">Удаление</a></form>
                     </div>
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'task_view' Task.pk %}" class="btn btn-primary">Подробнее</a></form>
+                        <form><a href="{% url 'webapp:task_view' Task.pk %}" class="btn btn-primary">Подробнее</a></form>
                     </div>
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'task_update' Task.pk %}" class="btn btn-primary">Редаклирование</a></form>
+                        <form><a href="{% url 'webapp:task_update' Task.pk %}" class="btn btn-primary">Редаклирование</a></form>
                     </div>
                 </div>
 

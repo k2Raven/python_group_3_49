@@ -12,10 +12,10 @@
                 <p class="card-text">Полное описание: {{ Task.description }}</p>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'delete_task' Task.pk %}" class="btn btn-primary">Удаление</a></form>
+                        <form><a href="{% url 'webapp:delete_task' Task.pk %}" class="btn btn-primary">Удаление</a></form>
                     </div>
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'task_update' Task.pk %}" class="btn btn-primary">Редаклирование</a></form>
+                        <form><a href="{% url 'webapp:task_update' Task.pk %}" class="btn btn-primary">Редаклирование</a></form>
                     </div>
                 </div>
 

@@ -12,12 +12,12 @@
             </div>
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
-                    <form method="POST" record="{% url "delete_types" types.pk %}">
+                    <form method="POST" record="{% url "webapp:delete_types" types.pk %}">
                         {% include 'partial/task_form.html' with button_text='Удалить' %}
                     </form>
                 </div>
                 <div class="col-auto my-1">
-                    <form><a href="{% url 'index'%}" class="btn btn-primary">Назад</a></form>
+                    <form><a href="{% url 'webapp:index'%}" class="btn btn-primary">Назад</a></form>
                 </div>
             </div>
         </div>

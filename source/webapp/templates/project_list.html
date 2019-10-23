@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    <a class="nav-link" href="{% url 'index' %}">Задачи</a>
+    <a class="nav-link" href="{% url 'webapp:index' %}">Задачи</a>
 {% endblock %}
 
 {% block dropdown %}
-    <a class="nav-link" href="{% url 'project_add' %}">Дабавление</a>
+    <a class="nav-link" href="{% url 'webapp:project_add' %}">Дабавление</a>
 {% endblock %}
 
 {% block search %}
@@ -26,13 +26,13 @@
                 <p class="card-text">Дата обновления: {{ project.updated_at }}</p>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'delete_project' project.pk %}" class="btn btn-primary">Удаление</a></form>
+                        <form><a href="{% url 'webapp:delete_project' project.pk %}" class="btn btn-primary">Удаление</a></form>
                     </div>
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'project_view' project.pk %}" class="btn btn-primary">Подробнее</a></form>
+                        <form><a href="{% url 'webapp:project_view' project.pk %}" class="btn btn-primary">Подробнее</a></form>
                     </div>
                     <div class="col-auto my-1">
-                        <form><a href="{% url 'project_update' project.pk %}" class="btn btn-primary">Редаклирование</a></form>
+                        <form><a href="{% url 'webapp:project_update' project.pk %}" class="btn btn-primary">Редаклирование</a></form>
                     </div>
                 </div>
 
