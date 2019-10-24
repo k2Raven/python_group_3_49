@@ -23,9 +23,13 @@
       </li>
       {% block dropdown %}{% endblock %}
         {% if request.user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'accounts:logout' %}?next={{ request.path }}"> Выход</a></li>
+            <li class="nav-item">
+                <a href="{% url 'accounts:logout' %}?next={{ request.path }}" class="btn btn-danger" role="button"> Выход</a>
+            </li>
         {% else %}
-            <li class="nav-item"><a href="{% url 'accounts:login' %}?next={{ request.path }}" > Вход</a></li>
+            <li class="nav-item">
+                <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-success" role="button"> Вход</a>
+            </li>
         {% endif %}
     </ul>
       {% block search %}{% endblock %}
