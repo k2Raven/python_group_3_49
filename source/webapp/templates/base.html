@@ -22,6 +22,11 @@
         {% block menu %}{% endblock %}
       </li>
       {% block dropdown %}{% endblock %}
+        {% if request.user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'accounts:logout' %}"> Выход</a></li>
+        {% else %}
+            <li class="nav-item"><a href="{% url 'accounts:login' %}"> Вход</a></li>
+        {% endif %}
     </ul>
       {% block search %}{% endblock %}
   </div>
