@@ -15,7 +15,7 @@ def login_view(request):
             return redirect(redirect_page)
         else:
             context['has_error'] = True
-    return render(request, 'login.html', context=context)
+    return render(request, 'registration/login.html', context=context)
 
 
 def logout_view(request):

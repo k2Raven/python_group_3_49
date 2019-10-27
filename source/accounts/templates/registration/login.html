@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,18 +14,19 @@
         Вход
       </div>
       <div class="card-body">
-        <form action="{% url 'accounts:login' %}" method="post">
+        <form action="{% url 'accounts:login' %}?next={{ next }}" method="post">
             {% csrf_token %}
-            {% if has_error %}
+            <input type="hidden" name="next" value="{{ next }}">
+            {% if form.non_field_errors %}
                 <p class="form-error">Неверное имя пользователя или пароль.</p>
             {% endif %}
           <div class="form-group">
-            <label for="username">Имя пользователя</label>
-            <input type="text" class="form-control" name="username" id="username">
+            <label for="{{ form.username.id_for_label }}">Имя пользователя:</label>
+            {{ form.username|add_class:"form-control" }}
           </div>
           <div class="form-group">
-            <label for="password">Пароль</label>
-            <input type="password" class="form-control" name="password" id="password">
+            <label for="{{ form.password.id_for_label }}">Пароль</label>
+            {{ form.password|add_class:"form-control"}}
           </div>
           <button type="submit" class="btn btn-primary">Войти</button>
           <a class="btn btn-primary" href="{% url 'webapp:project_list' %}" role="button">Назад</a>

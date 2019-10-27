@@ -24,11 +24,11 @@
       {% block dropdown %}{% endblock %}
         {% if request.user.is_authenticated %}
             <li class="nav-item">
-                <a href="{% url 'accounts:logout' %}?next={{ request.path }}" class="btn btn-danger" role="button"> Выход</a>
+                <a href="{% url 'accounts:logout' %}" class="btn btn-danger" role="button"> Выход</a>
             </li>
         {% else %}
             <li class="nav-item">
-                <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-success" role="button"> Вход</a>
+                <a href="{% url 'accounts:login' %}" class="btn btn-success" role="button"> Вход</a>
             </li>
         {% endif %}
     </ul>
