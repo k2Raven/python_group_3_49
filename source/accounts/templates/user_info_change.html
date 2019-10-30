@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Пользователь{% endblock %}
+
+{% block dropdown %}
+    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:detail' user_obj.pk %}">Назад</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:password_change' user_obj.pk %}">Смена пароля</a></li>
+{% endblock %}
+
+{% block content %}
+        <div class="card m-2">
+            <div class="card-header alert-dark">
+                Личный кабинет
+            </div>
+
+            <div class="card-body">
+                <form action="{% url 'accounts:detail' user_obj.pk %}" method="post">
+                    {% include 'partial/task_form.html' with button_text="Сохранить" %}
+                </form>
+            </div>
+        </div>
+{% endblock %}
