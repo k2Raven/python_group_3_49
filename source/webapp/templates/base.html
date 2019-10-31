@@ -22,6 +22,9 @@
         {% block menu %}{% endblock %}
       </li>
       {% block dropdown %}{% endblock %}
+            <li class="nav-item">
+                <a class="nav-link text-info" href="{% url 'accounts:user_index' %}">Список пользователей </a>
+            </li>
         {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link text-info" href="{% url 'accounts:detail' user.pk %}">Привет, {{ user.username }}!</a>

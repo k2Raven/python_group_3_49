@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for user_obj in users_obj %}
+        <div class="card m-2">
+            <div class="card-header alert-dark">
+                 Пользователь: {{ user_obj.username }}
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">Имя: {{ user_obj.first_name }}</p>
+                <p class="card-text">Фамилия: {{ user_obj.last_name }}</p>
+                <p class="card-text">Почта: {{ user_obj.email }}</p>
+                {% if user.pk == user_obj.pk %}
+                    <div class="form-row align-items-center">
+                        <div class="col-auto my-1">
+                            <form><a class="btn btn-primary" href="{% url 'accounts:update' user_obj.pk %}">Редактировать</a></form>
+                        </div>
+                        <div class="col-auto my-1">
+                            <form><a class="btn btn-primary" href="{% url 'accounts:password_change' user_obj.pk %}">Смена пароля</a></form>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

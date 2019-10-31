@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -24,7 +25,7 @@ class UserDetailView(DetailView):
     context_object_name = 'user_obj'
 
 
-class UserPersonalInfoChangeView(UpdateView):
+class UserPersonalInfoChangeView(UserPassesTestMixin, UpdateView):
     model = User
     template_name = 'user_info_change.html'
     form_class = UserChangeForm
@@ -37,11 +38,21 @@ class UserPersonalInfoChangeView(UpdateView):
         return reverse('accounts:detail', kwargs={'pk': self.object.pk})
 
 
-class UserPasswordChangeView(UpdateView):
+class UserPasswordChangeView(UserPassesTestMixin, UpdateView):
     model = User
     template_name = 'user_password_change.html'
     form_class = PasswordChangeForm
     context_object_name = 'user_obj'
 
+    def test_func(self):
+        return self.get_object() == self.request.user
+
     def get_success_url(self):
         return reverse('accounts:login')
+
+
+class UserIndexView(ListView):
+    model = User
+    template_name = 'accounts_list.html'
+    form_class = UserChangeForm
+    context_object_name = 'users_obj'
