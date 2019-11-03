@@ -122,6 +122,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    'accounts/templates/img',
+]
+
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "webapp:project_list"
 LOGOUT_REDIRECT_URL = "webapp:project_list"
