@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, reverse
 from .forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from accounts.models import Profile
 
 
 def register_view(request, *args, **kwargs):
@@ -11,6 +12,8 @@ def register_view(request, *args, **kwargs):
         form = UserCreationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
+            user.save()
+            Profile.objects.create(user=user)
             login(request, user)
             return redirect('webapp:project_list')
 

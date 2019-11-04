@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import widgets
 
 
 class UserCreationForm(forms.ModelForm):
@@ -45,9 +46,40 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
+    avatar = forms.ImageField(label='Аватар', required=False)
+    about_me = forms.CharField(max_length=3000, required=False, label='О себе', widget=widgets.Textarea)
+    git_http = forms.URLField(label='Профиль на гитхаб', required=False)
+
+    def clean_git_http(self):
+        git_http = self.cleaned_data['git_http']
+        if git_http == '' or not git_http.startswith('https://github.com/'):
+            raise forms.ValidationError('ссылка не на гитхаб')
+        return git_http
+
+    def get_initial_for_field(self, field, field_name):
+        if field_name in self.Meta.profile_fields:
+            return getattr(self.instance.profile, field_name)
+        return super().get_initial_for_field(field, field_name)
+
+    def save(self, commit=True):
+        user = super().save(commit)
+        self.save_profile(commit)
+        return user
+
+    def save_profile(self, commit=True):
+        profile = self.instance.profile
+        for field in self.Meta.profile_fields:
+            setattr(profile, field, self.cleaned_data[field])
+        if not profile.avatar:
+            profile.avatar = None
+        if commit:
+            profile.save()
+        return profile
+
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'avatar', 'about_me', 'git_http']
+        profile_fields = ['avatar', 'about_me', 'git_http']
         labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email'}
 
 

@@ -14,7 +14,7 @@
             </div>
 
             <div class="card-body">
-                <form action="{% url 'accounts:update' user_obj.pk %}" method="post">
+                <form action="{% url 'accounts:update' user_obj.pk %}" method="post" enctype="multipart/form-data">
                     {% include 'partial/task_form.html' with button_text="Сохранить" %}
                 </form>
             </div>
