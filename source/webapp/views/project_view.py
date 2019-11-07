@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
@@ -37,27 +37,36 @@ class ProjectView(DetailView):
         return context
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
+class ProjectCreateView(UserPassesTestMixin, CreateView):
     template_name = 'create/create_project.html'
     model = Project
     form_class = ProjectForm
+
+    def test_func(self):
+        return True
 
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(UserPassesTestMixin, UpdateView):
     model = Project
     template_name = 'update/update_project.html'
     form_class = ProjectForm
     context_object_name = 'project'
 
+    def test_func(self):
+        return True
+
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(UserPassesTestMixin, DeleteView):
     template_name = 'delete/delete_project.html'
     model = Project
     context_object_name = 'project'
     success_url = reverse_lazy('webapp:project_list')
+
+    def test_func(self):
+        return True
