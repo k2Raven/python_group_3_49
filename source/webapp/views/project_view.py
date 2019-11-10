@@ -37,13 +37,10 @@ class ProjectView(DetailView):
         return context
 
 
-class ProjectCreateView(UserPassesTestMixin, CreateView):
+class ProjectCreateView(CreateView):
     template_name = 'create/create_project.html'
     model = Project
     form_class = ProjectForm
-
-    def test_func(self):
-        return True
 
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
@@ -56,7 +53,9 @@ class ProjectUpdateView(UserPassesTestMixin, UpdateView):
     context_object_name = 'project'
 
     def test_func(self):
-        return True
+        self.object = Project.objects.get(pk=self.kwargs['pk'])
+        projects = Project.objects.filter(team__user=self.request.user)
+        return self.object in projects
 
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
@@ -69,4 +68,6 @@ class ProjectDeleteView(UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('webapp:project_list')
 
     def test_func(self):
-        return True
+        self.object = Project.objects.get(pk=self.kwargs['pk'])
+        projects = Project.objects.filter(team__user=self.request.user)
+        return self.object in projects
