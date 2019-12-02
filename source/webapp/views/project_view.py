@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
@@ -17,6 +18,12 @@ class ProjectListView(SearchView):
     paginate_by = 5
     paginate_orphans = 1
     from_search = SimpleSearchForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = Project.objects.filter(team__user=self.request.user, team__expiration_date=None)
+        context['users_project'] = project
+        return context
 
     def get_query(self):
         val = super().get_query()

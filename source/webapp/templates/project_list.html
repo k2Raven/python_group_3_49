@@ -25,19 +25,20 @@
             <div class="card-body">
                 <p class="card-text">Дата обновления: {{ project.updated_at }}</p>
                 <div class="form-row align-items-center">
-                    {% if  %}
+                {% for project_user in users_project %}
+                    {% if user.is_authenticated and project_user == project  %}
                         <div class="col-auto my-1">
                             <form><a href="{% url 'webapp:delete_project' project.pk %}" class="btn btn-primary">Удаление</a></form>
                         </div>
-                    {% endif %}
-                    <div class="col-auto my-1">
-                        <form><a href="{% url 'webapp:project_view' project.pk %}" class="btn btn-primary">Подробнее</a></form>
-                    </div>
-                    {% if %}
                         <div class="col-auto my-1">
                             <form><a href="{% url 'webapp:project_update' project.pk %}" class="btn btn-primary">Редаклирование</a></form>
                         </div>
                     {% endif %}
+                {% endfor %}
+
+                    <div class="col-auto my-1">
+                        <form><a href="{% url 'webapp:project_view' project.pk %}" class="btn btn-primary">Подробнее</a></form>
+                    </div>
                 </div>
 
             </div>
